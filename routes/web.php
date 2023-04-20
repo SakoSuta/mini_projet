@@ -18,9 +18,14 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/auth/user', [UserController::class, 'index'])->name('AllNotes');
+    Route::get('/auth/logout', [UserController::class, 'showNote'])->name('NoteID');
+});
+
+Route::middleware('auth')->group(function () {
     Route::get('/notes', [NoteController::class, 'index'])->name('AllNotes');
-    Route::post('/note/create', [NoteController::class, 'createNote'])->name('create.note');
-    Route::post('/note/update/{id}', [NoteController::class, 'updateNote'])->name('update.note');
-    Route::get('/note/{id}', [NoteController::class, 'showNote'])->name('NoteID');
-    Route::get('/delete/{id}', [NoteController::class, 'deleteNote'])->name('delete.note');
+    Route::get('/notes/{id}', [NoteController::class, 'showNote'])->name('NoteID');
+    Route::post('/notes', [NoteController::class, 'createNote'])->name('create.note');
+    Route::put('/notes/{id}', [NoteController::class, 'updateNote'])->name('update.note');
+    Route::delete('/notes/{id}', [NoteController::class, 'deleteNote'])->name('delete.note');
 });
