@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/notes', [NoteController::class, 'index'])->name('AllNotes');
+    Route::post('/note/create', [NoteController::class, 'createNote'])->name('create.note');
+    Route::post('/note/update/{id}', [NoteController::class, 'updateNote'])->name('update.note');
+    Route::get('/note/{id}', [NoteController::class, 'showNote'])->name('NoteID');
+    Route::get('/delete/{id}', [NoteController::class, 'deleteNote'])->name('delete.note');
+});
